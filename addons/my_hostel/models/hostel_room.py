@@ -1,8 +1,21 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 
+
+class HostelArchive(models.AbstractModel):
+    _name = 'hostel.archive'
+    _description = 'Custom Archive for Hostel'
+
+    active = fields.Boolean(default=True)
+
+    def do_archive(self):
+        for record in self:
+            record.active = not record.active
+
+
 class HostelRoom(models.Model):
     _name = "hostel.room"
+    _inherit = ['hostel.archive']
     _description = "Hostel Room"
 
     room_name = fields.Char("Room Name")
@@ -20,12 +33,11 @@ class HostelRoom(models.Model):
         "hostel.amenities",
         "hostel_room_amenities_rel",
         "room_id",
-        "amenity_id",   
+        "amenity_id",
         string="Amenities",
         domain="[('active', '=', True)]",
         help="Select hostel room amenities"
     )
-
 
     _sql_constraints = [
         ("room_no_unique", "unique(room_num)", "Room number must be unique!")
@@ -56,4 +68,4 @@ class HostelRoom(models.Model):
     def _compute_check_availability(self):
         """Method to check room availability"""
         for rec in self:
-            rec.availability = rec.student_per_room - len(rec.student_ids.ids)
+            rec.availability = rec.student_per_room - len(rec.student_ids)
