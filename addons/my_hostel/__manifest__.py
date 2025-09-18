@@ -18,7 +18,7 @@
     'web/static/src/xml/**/*',
     ],
     },
-    'demo': ['demo.xml'],
+    #'demo': ['demo.xml'],
     'installable': True,
     'application': True,
 }
