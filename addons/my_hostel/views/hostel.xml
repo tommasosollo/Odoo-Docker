@@ -158,6 +158,7 @@
 
                             <button name="update_room_no" string="Update Room No" type="object"/>
                             <button name="find_room" string="Find Room" type="object"/>
+                            <button name="filter_members" string="Filter Members" type="object"/>
 
                         </group>
                     </group>

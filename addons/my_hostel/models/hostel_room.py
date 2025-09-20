@@ -133,3 +133,16 @@ class HostelRoom(models.Model):
 
         UserError(rooms)
 
+    def filter_members(self):
+        all_rooms = self.search([])
+        filtered_rooms = self.rooms_with_multiple_members(all_rooms)
+        
+
+    @api.model
+    def rooms_with_multiple_members(self, all_rooms):
+        def predicate(room):
+            if len(room.student_ids) > 1:
+                return True
+            return False
+        
+        return all_rooms.filtered(predicate)
