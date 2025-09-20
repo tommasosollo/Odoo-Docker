@@ -1,5 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError
+from odoo.tools.translate import _
 
 
 class HostelArchive(models.AbstractModel):
@@ -18,7 +20,7 @@ class HostelRoom(models.Model):
     _inherit = ['hostel.archive']
     _description = "Hostel Room"
 
-    room_name = fields.Char("Room Name")
+    name = fields.Char("Room Name")
     room_num = fields.Char("Room No.")
     room_floor = fields.Char("Room Floor")
 
@@ -38,6 +40,14 @@ class HostelRoom(models.Model):
         domain="[('active', '=', True)]",
         help="Select hostel room amenities"
     )
+
+    category_id = fields.Many2one(
+        'hostel.category',
+        string='Category',
+        ondelete='restrict',
+        help='Select room category'
+    )
+
 
     _sql_constraints = [
         ("room_no_unique", "unique(room_num)", "Room number must be unique!")
@@ -69,3 +79,57 @@ class HostelRoom(models.Model):
         """Method to check room availability"""
         for rec in self:
             rec.availability = rec.student_per_room - len(rec.student_ids)
+
+
+    state = fields.Selection([
+        ('draft', 'Unavailable'),
+        ('available', 'Available'),
+        ('closed', 'Closed')],
+        'State', default="draft")
+    
+    @api.model
+    def is_allowed_transition(self, old_state, new_state):
+        allowed = [('draft', 'available'),
+        ('available', 'closed'),
+        ('closed', 'draft')]
+        return (old_state, new_state) in allowed
+    
+    def change_state(self, new_state):
+        for room in self:
+            if room.is_allowed_transition(room.state, new_state):
+                room.state = new_state
+            else:
+                msg = _('Moving from %s to %s is not allowed') % (room.state, new_state)
+                raise UserError(msg)
+    
+    def make_available(self):
+        self.change_state('available')
+    def make_closed(self):
+        self.change_state('closed')
+    def make_draft(self):
+        self.change_state('draft')
+
+
+    def log_all_room_members(self):
+        # This is an empty recordset of model hostel.room.members
+        hostel_room_obj = self.env['hostel.room.members']
+        all_members = hostel_room_obj.search([])
+        print("ALL MEMBERS:", all_members)
+        return True
+    
+    def update_room_no(self):
+        self.ensure_one()
+        self.room_num = "RM002"
+
+    def find_room(self):
+        domain = [
+            '|',
+            '&', ('name', 'ilike', 'Room Name'),
+            ('category_id.name', 'ilike', 'Category Name'),
+            '&', ('name', 'ilike', 'Second Room Name 2'),
+            ('category_id.name', 'ilike', 'SecondCategory Name 2')
+        ]
+        rooms = self.search(domain)
+
+        UserError(rooms)
+
