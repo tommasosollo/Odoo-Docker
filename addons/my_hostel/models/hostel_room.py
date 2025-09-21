@@ -23,6 +23,7 @@ class HostelRoom(models.Model):
     name = fields.Char("Room Name")
     room_num = fields.Char("Room No.")
     room_floor = fields.Char("Room Floor")
+    room_rating = fields.Integer("Room Rating")
 
     currency_id = fields.Many2one('res.currency', string='Currency')
     rent_amount = fields.Monetary('Rent Amount', help="Enter rent amount per month")
@@ -146,3 +147,11 @@ class HostelRoom(models.Model):
             return False
         
         return all_rooms.filtered(predicate)
+
+    @api.model
+    def get_members_names(self, rooms):
+        return rooms.mapped('student_ids.name') 
+    
+    @api.model
+    def sort_rooms_by_rating(self, rooms):
+        return rooms.sorted(key='room_rating')

@@ -47,6 +47,8 @@ class HostelStudent(models.Model):
 
     partner_id = fields.Many2one('res.partner', ondelete='cascade')
 
+    name = fields.Char("Name")
+
     gender = fields.Selection([("male", "Male"),
     ("female", "Female"), ("other", "Other")],
     string="Gender", help="Student gender")
