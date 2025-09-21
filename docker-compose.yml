@@ -22,6 +22,7 @@ services:
       - odoo-data:/var/lib/odoo
       - ./addons:/mnt/extra-addons  # cartella per moduli personalizzati
       - ./config:/etc/odoo
+      - ./custom_addons:/mtn/custom-addons
 
 volumes:
   db-data:
