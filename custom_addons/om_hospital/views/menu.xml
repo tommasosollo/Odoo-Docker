@@ -10,4 +10,9 @@
         parent="menu_front_desk" 
         action="action_hospital_patient" />
 
+    <menuitem id="menu_patients_readonly" 
+        name="View Patients" 
+        parent="menu_front_desk" 
+        action="action_hospital_readonly_patient" />
+
 </odoo>
