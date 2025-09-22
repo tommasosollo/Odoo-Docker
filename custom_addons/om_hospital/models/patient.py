@@ -23,3 +23,16 @@ class HospitalPatient(models.Model):
         tracking=True
         )
 
+    tag_ids = fields.Many2many(
+        'patient.tag',          #co-model
+        'patient_tag_rel',      #table name (optional)
+        'patient_id',           #patient id (optional)
+        'tag_id',               #tag id (optional)
+        string="Tags"
+    )
+
+    appointment_ids = fields.One2many(
+        'hospital.appointment',
+        'patient_id',
+        string="Appointments"
+    )

@@ -44,6 +44,25 @@
                             <field name="gender"></field> 
                         </group>
                     </group>
+                    <field name="appointment_ids">
+                        <tree>
+                            <field name="reference"></field>
+                            <field name="patient_id"></field>
+                            <field name="appointment_date" optional="show"></field>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="reference" readonly="True"></field>
+                                    <field name="patient_id" readonly="1" widget="many2one" options="{'no_open': True}"/>
+                                </group>
+                                <group>
+                                <field name="appointment_date"></field>
+                                    <field name="note"></field> 
+                                </group>
+                            </group>
+                        </form>
+                    </field>
                 </sheet>
 
                 <div class="oe_chatter">

@@ -37,12 +37,32 @@
                     <group>
                         <group>
                             <field name="name"></field>
+                            <field name="date_of_birth"></field>
                         </group>
                         <group>
-                        <field name="date_of_birth"></field>
                             <field name="gender"></field> 
+                            <field name="tag_ids" widget="many2many_tags"></field>
                         </group>
                     </group>
+                    <field name="appointment_ids">
+                        <tree>
+                            <field name="reference"></field>
+                            <field name="patient_id"></field>
+                            <field name="appointment_date" optional="show"></field>
+                        </tree>
+                        <form>
+                            <group>
+                                <group>
+                                    <field name="reference" readonly="True"></field>
+                                    <field name="patient_id" readonly="1" widget="many2one" options="{'no_open': True}"/>
+                                </group>
+                                <group>
+                                <field name="appointment_date"></field>
+                                    <field name="note"></field> 
+                                </group>
+                            </group>
+                        </form>
+                    </field>
                 </sheet>
 
                 <div class="oe_chatter">
