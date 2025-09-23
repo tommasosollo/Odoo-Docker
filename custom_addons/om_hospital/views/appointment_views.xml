@@ -20,6 +20,7 @@
                 <field name="reference"></field>
                 <field name="patient_id"></field>
                 <field name="appointment_date" optional="show"></field>
+                <field name="state"></field>
             </tree>
         </field>
     </record>
@@ -51,6 +52,30 @@
                             <field name="note"></field> 
                         </group>
                     </group>
+                    <notebook>
+                        <page name="prescription" string="Prescriptions">
+                            <field name="prescription_drugs_ids" mode="tree,form">
+                                <tree>
+                                    <field name="reference"></field>
+                                    <field name="product_id"></field>
+                                    <field name="qty"></field>
+                                    <field name="note" optional="show"></field>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="reference" readonly="True"></field>
+                                            <field name="product_id"></field>
+                                        </group>
+                                        <group>
+                                            <field name="qty" />
+                                            <field name="note"></field> 
+                                        </group>
+                                    </group>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
 
                 <div class="oe_chatter">

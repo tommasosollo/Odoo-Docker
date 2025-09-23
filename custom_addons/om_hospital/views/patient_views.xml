@@ -44,25 +44,57 @@
                             <field name="tag_ids" widget="many2many_tags"></field>
                         </group>
                     </group>
-                    <field name="appointment_ids">
-                        <tree>
-                            <field name="reference"></field>
-                            <field name="patient_id"></field>
-                            <field name="appointment_date" optional="show"></field>
-                        </tree>
-                        <form>
-                            <group>
-                                <group>
-                                    <field name="reference" readonly="True"></field>
-                                    <field name="patient_id" readonly="1" widget="many2one" options="{'no_open': True}"/>
-                                </group>
-                                <group>
-                                <field name="appointment_date"></field>
-                                    <field name="note"></field> 
-                                </group>
-                            </group>
-                        </form>
-                    </field>
+
+                    <notebook>
+                        <page name="appointments" string="Appointments">
+                            <field name="appointment_ids">
+                                <tree>
+                                    <field name="reference"></field>
+                                    <field name="patient_id"></field>
+                                    <field name="appointment_date" optional="show"></field>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <group>
+                                            <field name="reference" readonly="True"></field>
+                                            <field name="patient_id" readonly="1" widget="many2one" options="{'no_open': True}"/>
+                                        </group>
+                                        <group>
+                                        <field name="appointment_date"></field>
+                                            <field name="note"></field> 
+                                        </group>
+                                    </group>
+                                    <notebook>
+                                        <page name="prescription" string="Prescriptions">
+                                            <field name="prescription_drugs_ids">
+                                                <tree>
+                                                    <field name="reference"></field>
+                                                    <field name="product_id"></field>
+                                                    <field name="qty"></field>
+                                                    <field name="note" optional="show"></field>
+                                                </tree>
+                                                <form>
+                                                    <group>
+                                                        <group>
+                                                            <field name="reference" readonly="True"></field>
+                                                            <field name="product_id"></field>
+                                                        </group>
+                                                        <group>
+                                                            <field name="qty" />
+                                                            <field name="note"></field> 
+                                                        </group>
+                                                    </group>
+                                                </form>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                        <page name="other_info" string="Other Info">
+
+                        </page>
+                    </notebook>
                 </sheet>
 
                 <div class="oe_chatter">

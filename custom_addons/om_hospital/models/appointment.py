@@ -7,6 +7,7 @@ class HospitalAppointment(models.Model):
     _description = "Hospital Appointment"
     _inherit = ['mail.thread']
     _rec_name = 'patient_id'
+    _rec_name_search = ['reference', 'patient_id']
 
     reference = fields.Char(string="Reference", default="New")
     patient_id = fields.Many2one("hospital.patient", string="Patient")
@@ -25,6 +26,12 @@ class HospitalAppointment(models.Model):
         tracking=True
     )
 
+    prescription_drugs_ids = fields.One2many(
+        "patient.prescription",
+        "appointment_id",
+        string="Prescription"
+    )
+
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -32,7 +39,7 @@ class HospitalAppointment(models.Model):
             if not vals.get('reference') or vals['reference'] == 'New':
                 vals['reference'] = self.env['ir.sequence'].next_by_code('hospital.appointment')
         return super().create(vals_list)
-    
+
     def action_confirm(self):
         for rec in self:
             rec.state='confirmed'

@@ -36,3 +36,5 @@ class HospitalPatient(models.Model):
         'patient_id',
         string="Appointments"
     )
+
+    
