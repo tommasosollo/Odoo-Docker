@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Patient List View -->
     <record id="view_hospital_patient_list" model="ir.ui.view">
         <field name="name">hospital.patient.list</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <list string="Patients">
-                <field name="name"></field>
-                <field name="date_of_birth" optional="show"></field>
-                <field name="gender" optional="hide"></field>
-            </list>
+            <tree string="Patients">
+                <field name="name"/>
+                <field name="date_of_birth" optional="show"/>
+                <field name="gender" optional="hide"/>
+            </tree>
         </field>
     </record>
 
+    <!-- Patient Form View -->
     <record id="view_hospital_patient_form" model="ir.ui.view">
         <field name="name">hospital.patient.form</field>
         <field name="model">hospital.patient</field>
@@ -21,83 +23,129 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name"></field>
-                            <field name="date_of_birth"></field>
+                            <field name="name"/>
+                            <field name="date_of_birth"/>
                         </group>
                         <group>
-                            <field name="gender"></field> 
-                            <field name="tag_ids" widget="many2many_tags"></field>
+                            <field name="gender"/> 
+                            <field name="tag_ids" widget="many2many_tags"/>
                         </group>
                     </group>
 
                     <notebook>
+                        <!-- Appointments -->
                         <page name="appointments" string="Appointments">
-                            <field name="appointment_ids">
-                                <list>
-                                    <field name="reference"></field>
-                                    <field name="patient_id"></field>
-                                    <field name="appointment_date" optional="show"></field>
-                                </list>
-                                <form>
-                                    <group>
-                                        <group>
-                                            <field name="reference" readonly="True"></field>
-                                            <field name="patient_id" readonly="1" widget="many2one" options="{'no_open': True}"/>
-                                        </group>
-                                        <group>
-                                        <field name="appointment_date"></field>
-                                            <field name="note"></field> 
-                                        </group>
-                                    </group>
-                                    <notebook>
-                                        <page name="prescription" string="Prescriptions">
-                                            <field name="prescription_drugs_ids">
-                                                <list>
-                                                    <field name="reference"></field>
-                                                    <field name="product_id"></field>
-                                                    <field name="qty"></field>
-                                                    <field name="note" optional="show"></field>
-                                                </list>
-                                                <form>
-                                                    <group>
-                                                        <group>
-                                                            <field name="reference" readonly="True"></field>
-                                                            <field name="product_id"></field>
-                                                        </group>
-                                                        <group>
-                                                            <field name="qty" />
-                                                            <field name="note"></field> 
-                                                        </group>
-                                                    </group>
-                                                </form>
-                                            </field>
-                                        </page>
-                                    </notebook>
-                                </form>
+                            <field name="appointment_ids" context="{'default_patient_id': active_id}">
+                                <tree ref="view_hospital_appointment_tree"/>
+                                <form ref="view_hospital_appointment_form"/>
                             </field>
                         </page>
-                        <page name="other_info" string="Other Info">
 
+                        <!-- Other Info -->
+                        <page name="other_info" string="Other Info">
+                            <!-- Additional fields can go here -->
                         </page>
                     </notebook>
                 </sheet>
 
+                <!-- Chatter -->
                 <div class="oe_chatter">
-                    <field name="message_follower_ids" groups="base.group_user"></field>
-                    <field name="message_ids"></field>
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
                 </div>
             </form>
         </field>
     </record>
 
+    <!-- Appointments Tree View -->
+    <record id="view_hospital_appointment_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.tree</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <tree string="Appointments">
+                <field name="reference"/>
+                <field name="patient_id"/>
+                <field name="appointment_date" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Appointments Form View -->
+    <record id="view_hospital_appointment_form" model="ir.ui.view">
+        <field name="name">hospital.appointment.form</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <form string="Appointment">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="reference" readonly="1"/>
+                            <field name="patient_id" readonly="1" options="{'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="appointment_date"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <!-- Prescriptions -->
+                        <page name="prescriptions" string="Prescriptions">
+                            <field name="prescription_drugs_ids">
+                                <tree ref="view_hospital_prescription_tree"/>
+                                <form ref="view_hospital_prescription_form"/>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Prescription Tree View -->
+    <record id="view_hospital_prescription_tree" model="ir.ui.view">
+        <field name="name">hospital.prescription.tree</field>
+        <field name="model">hospital.prescription</field>
+        <field name="arch" type="xml">
+            <tree string="Prescriptions">
+                <field name="reference"/>
+                <field name="product_id"/>
+                <field name="qty"/>
+                <field name="note" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Prescription Form View -->
+    <record id="view_hospital_prescription_form" model="ir.ui.view">
+        <field name="name">hospital.prescription.form</field>
+        <field name="model">hospital.prescription</field>
+        <field name="arch" type="xml">
+            <form string="Prescription">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="reference" readonly="1"/>
+                            <field name="product_id"/>
+                        </group>
+                        <group>
+                            <field name="qty"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Patient Action -->
     <record id="action_hospital_patient" model="ir.actions.act_window">
         <field name="name">Patients</field>
         <field name="res_model">hospital.patient</field>
-        <field name="view_mode">list,form,kanban</field>
+        <field name="view_mode">tree,form,kanban</field>
         <field name="view_ids" eval="[Command.clear(),
-                        (0,0,{'view_mode':'list', 'view_id': ref('view_hospital_patient_list')}),
-                        (0,0,{'view_mode':'form', 'view_id': ref('view_hospital_patient_form')})]" />
-
+                        (0,0,{'view_mode':'tree','view_id': ref('view_hospital_patient_list')}),
+                        (0,0,{'view_mode':'form','view_id': ref('view_hospital_patient_form')})]"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new patient
