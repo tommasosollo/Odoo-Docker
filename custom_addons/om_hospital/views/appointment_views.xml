@@ -74,6 +74,9 @@
                                     </group>
                                 </form>
                             </field>
+                            <group>
+                                <field name="total_qty"></field>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>

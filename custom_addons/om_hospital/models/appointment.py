@@ -32,6 +32,9 @@ class HospitalAppointment(models.Model):
         string="Prescription"
     )
 
+    total_qty = fields.Float(compute="_compute_total_qty", string="Total Quantity")
+
+
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -39,6 +42,11 @@ class HospitalAppointment(models.Model):
             if not vals.get('reference') or vals['reference'] == 'New':
                 vals['reference'] = self.env['ir.sequence'].next_by_code('hospital.appointment')
         return super().create(vals_list)
+
+    @api.depends("prescription_drugs_ids.qty")
+    def _compute_total_qty(self):
+        for rec in self:
+            rec.total_qty = sum(rec.prescription_drugs_ids.mapped("qty"))
 
     def action_confirm(self):
         for rec in self:
