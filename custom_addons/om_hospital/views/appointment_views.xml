@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Appointment List View -->
-    <record id="view_hospital_appointment_list" model="ir.ui.view">
-        <field name="name">hospital.appointment.list</field>
+    <record id="action_hospital_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Appointment
+            </p>
+        </field>
+    </record>
+
+    <record id="view_hospital_appointment_tree" model="ir.ui.view">
+        <field name="name">hospital.appointment.tree</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
             <list string="Appointments">
@@ -76,16 +86,6 @@
                     <field name="message_ids"/>
                 </div>
             </form>
-        </field>
-    </record>
-
-    <!-- Appointment Action -->
-    <record id="action_hospital_appointment" model="ir.actions.act_window">
-        <field name="name">Appointments</field>
-        <field name="res_model">hospital.appointment</field>
-        <field name="view_mode">list,form,kanban</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">Create a new Appointment</p>
         </field>
     </record>
 

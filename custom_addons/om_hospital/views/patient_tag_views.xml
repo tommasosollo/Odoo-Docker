@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+<<<<<<< HEAD
     <!-- List View -->
     <record id="view_patient_tag_list" model="ir.ui.view">
         <field name="name">patient.tag.list</field>
@@ -24,3 +25,28 @@
     </record>
 
 </odoo>
+=======
+    <record id="view_patient_tag_tree" model="ir.ui.view">
+        <field name="name">hospital.patient.tree</field>
+        <field name="model">patient.tag</field>
+        <field name="arch" type="xml">
+            <tree string="Patient Tags" editable="bottom">
+                <field name="sequence" widget="handle"></field>
+                <field name="name"></field>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_patient_tag" model="ir.actions.act_window">
+        <field name="name">Patient Tags</field>
+        <field name="res_model">patient.tag</field>
+        <field name="view_mode">tree,kanban</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new patient tag
+            </p>
+        </field>
+    </record>
+
+</odoo>
+>>>>>>> 7bc7f7d (debug)
