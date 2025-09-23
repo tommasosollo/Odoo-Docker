@@ -2,9 +2,10 @@
     "name": "Hospital Managment System",
     "author": "Tommaso Sollo",
     "license": "LGPL-3",
-    "version": "17.0.1.0",
+    "version": "19.0.1.0",
     "depends": [
-        "mail"
+        "mail",
+        "product"
     ],
 
     "data": [
@@ -15,5 +16,7 @@
         "views/appointment_views.xml",
         "views/menu.xml",
         "data/sequence.xml",
-    ]
+    ],
+    "installable": True,
+    "application": True,
 }
