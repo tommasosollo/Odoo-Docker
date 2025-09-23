@@ -93,7 +93,6 @@
     <record id="action_hospital_readonly_patient" model="ir.actions.act_window">
         <field name="name">View Patients</field>
         <field name="res_model">hospital.patient</field>
-        <field name="view_mode">list,form,kanban</field>
         <field name="view_ids" eval="[
             (0,0,{'view_mode':'list','view_id': ref('view_hospital_patient_readonly_list')}),
             (0,0,{'view_mode':'form','view_id': ref('view_hospital_patient_readonly_form')})

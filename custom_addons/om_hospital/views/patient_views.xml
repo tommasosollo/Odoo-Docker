@@ -94,7 +94,6 @@
     <record id="action_hospital_patient" model="ir.actions.act_window">
         <field name="name">Patients</field>
         <field name="res_model">hospital.patient</field>
-        <field name="view_mode">list,form,kanban</field>
         <field name="view_ids" eval="[
             (0,0,{'view_mode':'list','view_id': ref('view_hospital_patient_list')}),
             (0,0,{'view_mode':'form','view_id': ref('view_hospital_patient_form')})
@@ -103,5 +102,6 @@
             <p class="o_view_nocontent_smiling_face">Create a new patient</p>
         </field>
     </record>
+
 
 </odoo>
