@@ -90,7 +90,7 @@
     </record>
 
     <!-- Read-Only Action -->
-    <record id="action_hospital_readonly_patient" model="ir.actions.act_window">
+    <record id="action_hospital_readonly_patient" model="ir.actions.act_window" >
         <field name="name">View Patients</field>
         <field name="res_model">hospital.patient</field>
         <field name="view_ids" eval="[
