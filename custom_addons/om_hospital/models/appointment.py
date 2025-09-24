@@ -10,7 +10,7 @@ class HospitalAppointment(models.Model):
     _rec_name_search = ['reference', 'patient_id']
 
     reference = fields.Char(string="Reference", default="New")
-    patient_id = fields.Many2one("hospital.patient", string="Patient")
+    patient_id = fields.Many2one("hospital.patient", string="Patient", ondelete="restrict")
     appointment_date = fields.Date(string="Date")
     note = fields.Text(string="Note")
 
@@ -33,6 +33,8 @@ class HospitalAppointment(models.Model):
     )
 
     total_qty = fields.Float(compute="_compute_total_qty", string="Total Quantity")
+
+    date_of_birth = fields.Date(related="patient_id.date_of_birth")
 
 
 

@@ -16,12 +16,12 @@
         <field name="name">hospital.appointment.tree</field>
         <field name="model">hospital.appointment</field>
         <field name="arch" type="xml">
-            <list string="Appointments">
+            <tree string="Appointments">
                 <field name="reference"/>
                 <field name="patient_id"/>
                 <field name="appointment_date" optional="show"/>
                 <field name="state"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -33,20 +33,22 @@
             <form string="Appointment">
                 <header>
                     <button name="action_confirm" type="object" string="Confirm"
-                        attrs="{'invisible':[('state','!=','draft')]}" class="oe_highlight"/>
+                        invisible="state != 'draft'" class="oe_highlight"/>
                     <button name="action_ongoing" type="object" string="Ongoing"
-                        attrs="{'invisible':[('state','!=','confirmed')]}" class="oe_highlight"/>
+                        invisible="state != 'confirmed'" class="oe_highlight"/>
                     <button name="action_done" type="object" string="Done"
-                        attrs="{'invisible':[('state','!=','ongoing')]}" class="oe_highlight"/>
+                        invisible="state != 'ongoing'" class="oe_highlight"/>
                     <button name="action_cancel" type="object" string="Cancel"
-                        attrs="{'invisible':[('state','=','done')]}"/>
+                        invisible="state == 'done'"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,ongoing,done"/>
                 </header>
+
                 <sheet>
                     <group>
                         <group>
                             <field name="reference" readonly="True"/>
                             <field name="patient_id"/>
+                            <field name="date_of_birth"/>
                         </group>
                         <group>
                             <field name="appointment_date"/>
@@ -56,12 +58,12 @@
                     <notebook>
                         <page name="prescription" string="Prescriptions">
                             <field name="prescription_drugs_ids">
-                                <list>
+                                <tree>
                                     <field name="reference"/>
                                     <field name="product_id"/>
                                     <field name="qty"/>
                                     <field name="note" optional="show"/>
-                                </list>
+                                </tree>
                                 <form>
                                     <group>
                                         <group>

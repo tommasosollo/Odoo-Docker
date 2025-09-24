@@ -1,4 +1,5 @@
-from odoo import models, fields, api
+from odoo import models, fields, _, api
+from odoo.exceptions import ValidationError
 
 
 class HospitalPatient(models.Model):
@@ -36,5 +37,22 @@ class HospitalPatient(models.Model):
         'patient_id',
         string="Appointments"
     )
+
+    @api.ondelete(at_uninstall=False)
+    def _check_patient_appointments(self):
+        for rec in self:
+            domain = [("patient_id", "=", rec.id)]
+            appointments = self.env['hospital.appointment'].search(domain)
+            if appointments:
+                raise ValidationError("You Cannot delete the patient: \nExisting appointments ")
+
+    # def unlink(self):
+    #     # we can perform anything here
+    #     for rec in self:
+    #         domain = [("patient_id", "=", rec.id)]
+    #         appointments = self.env['hospital.appointment'].search(domain)
+    #         if appointments:
+    #             raise ValidationError("You Cannot delete the patient: \nexisting appointments ")
+    #     return super().unlink()
 
     

@@ -5,11 +5,11 @@
         <field name="name">hospital.patient.tree</field>
         <field name="model">hospital.patient</field>
         <field name="arch" type="xml">
-            <list string="Patients">
+            <tree string="Patients">
                 <field name="name"/>
                 <field name="date_of_birth" optional="show"/>
                 <field name="gender" optional="hide"/>
-            </list>
+            </tree>
         </field>
     </record>
 
@@ -34,11 +34,11 @@
                     <notebook>
                         <page name="appointments" string="Appointments">
                             <field name="appointment_ids">
-                                <list>
+                                <tree>
                                     <field name="reference"/>
                                     <field name="patient_id"/>
                                     <field name="appointment_date" optional="show"/>
-                                </list>
+                                </tree>
                                 <form>
                                     <group>
                                         <group>
@@ -53,12 +53,12 @@
                                     <notebook>
                                         <page name="prescription" string="Prescriptions">
                                             <field name="prescription_drugs_ids">
-                                                <list>
+                                                <tree>
                                                     <field name="reference"/>
                                                     <field name="product_id"/>
                                                     <field name="qty"/>
                                                     <field name="note" optional="show"/>
-                                                </list>
+                                                </tree>
                                                 <form>
                                                     <group>
                                                         <group>
