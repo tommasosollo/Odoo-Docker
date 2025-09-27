@@ -23,6 +23,7 @@
     <menuitem id="menu_configuration" 
         name="Configuration" 
         sequence="1000"
+        groups="om_hospital.group_hospital_doctor"
         parent="menu_hospital_root" />
 
     <menuitem id="menu_patient_tags" 

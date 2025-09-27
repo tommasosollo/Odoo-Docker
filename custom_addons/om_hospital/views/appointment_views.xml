@@ -53,6 +53,7 @@
                         <group>
                             <field name="appointment_date"/>
                             <field name="note"/>
+                            <field name="create_uid" groups="om_hospital.group_hospital_doctor"/>
                         </group>
                     </group>
                     <notebook>

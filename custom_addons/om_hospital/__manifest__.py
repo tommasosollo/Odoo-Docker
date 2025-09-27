@@ -9,6 +9,7 @@
     ],
 
     "data": [
+        "security/security.xml",
         "security/ir.model.access.csv",
         "views/patient_views.xml",
         "views/patient_tag_views.xml",
