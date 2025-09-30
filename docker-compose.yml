@@ -18,6 +18,7 @@ services:
       - HOST=db
       - USER=odoo
       - PASSWORD=odoo
+      - ADMIN_PASSWD=password
     volumes:
       - odoo-data:/var/lib/odoo
       - ./addons:/mnt/extra-addons  # cartella per moduli personalizzati
