@@ -23,6 +23,9 @@ class HospitalPatient(models.Model):
         string="Gender", 
         tracking=True
         )
+    
+    is_minor = fields.Boolean(string="Minor")
+    guardian = fields.Char(string="Guardian")
 
     tag_ids = fields.Many2many(
         'patient.tag',          #co-model

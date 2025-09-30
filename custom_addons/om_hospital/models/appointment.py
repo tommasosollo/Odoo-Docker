@@ -44,6 +44,10 @@ class HospitalAppointment(models.Model):
             if not vals.get('reference') or vals['reference'] == 'New':
                 vals['reference'] = self.env['ir.sequence'].next_by_code('hospital.appointment')
         return super().create(vals_list)
+    
+    def _compute_display_name(self):
+        for rec in self:
+            rec.display_name = f"[{rec.reference}] {rec.patient_id.name}"
 
     @api.depends("prescription_drugs_ids.qty")
     def _compute_total_qty(self):
