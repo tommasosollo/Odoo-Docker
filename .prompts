@@ -1,6 +1,3 @@
 docker compose up -d 
 docker exec -it odoo-docker-odoo-1 odoo -c /etc/odoo/odoo.conf -d prova -u my_hostel --stop-after-init
 docker restart odoo-docker-odoo-1
-
-
-13:00

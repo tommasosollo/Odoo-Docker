@@ -88,6 +88,20 @@
         </field>
     </record>
 
+    <record id="view_hospital_patient_readonly_search" model="ir.ui.view">
+        <field name="name">hospital.patient.readonly.search</field>
+        <field name="model">hospital.patient</field>
+        <field name="arch" type="xml">
+            <search string="Patients">
+                <field name="name"/>
+                <field name="date_of_birth"/>
+                <group expand="1" string="Group By">
+                    <filter name="group_by_gender" string="Gender" context="{'group_by' : 'gender'}"></filter>
+                </group>
+            </search>
+        </field>
+    </record>
+
     <record id="action_hospital_readonly_patient" model="ir.actions.act_window">
         <field name="name">View Patients</field>
         <field name="res_model">hospital.patient</field>
@@ -96,6 +110,7 @@
                         (0,0,{'view_mode':'tree', 'view_id': ref('view_hospital_patient_readonly_tree')}),
                         (0,0,{'view_mode':'form', 'view_id': ref('view_hospital_patient_readonly_form')})]" />
 
+        <field name="search_view_id" ref="view_hospital_patient_readonly_search"></field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new patient

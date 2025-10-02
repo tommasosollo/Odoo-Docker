@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<odoo>
-
-    <record id="action_hospital_appointment" model="ir.actions.act_window">
-        <field name="name">Appointments</field>
-        <field name="res_model">hospital.appointment</field>
-        <field name="view_mode">tree,form,kanban</field>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Create a new Appointment
-            </p>
-        </field>
-    </record>
+<odoo>    
 
     <record id="view_hospital_appointment_tree" model="ir.ui.view">
         <field name="name">hospital.appointment.tree</field>
@@ -89,6 +78,38 @@
                     <field name="message_ids"/>
                 </div>
             </form>
+        </field>
+    </record>
+
+    <record id="view_hospital_appointment_search" model="ir.ui.view">
+        <field name="name">hospital.appointment.search</field>
+        <field name="model">hospital.appointment</field>
+        <field name="arch" type="xml">
+            <search string="Appointment">
+                <field name="reference" 
+                filter_domain="['|', ('reference','ilike','self'), ('patient_id','ilike','self')]"
+                string="Join Search"
+                />
+                <group expand="1" string="Group By">
+                    <filter name="group_by_patient" string="Patient" context="{'group_by' : 'patient_id'}"></filter>
+                </group>
+                <searchpanel>
+                    <field name="patient_id" string="Patient" enable_counters="1"></field>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_hospital_appointment" model="ir.actions.act_window">
+        <field name="name">Appointments</field>
+        <field name="res_model">hospital.appointment</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="search_view_id" ref="view_hospital_appointment_search"></field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a new Appointment
+            </p>
         </field>
     </record>
 
