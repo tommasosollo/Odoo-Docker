@@ -115,7 +115,8 @@
     </record>
 
     <menuitem id="hostel_room_menu" name="Hostel Room" parent="hostel_main_menu"
-    action="my_hostel.action_hostel_room" groups="my_hostel.group_hostel_manager"
+    action="my_hostel.action_hostel_room" 
+    groups="my_hostel.group_hostel_manager"
     sequence="1"/>
     
     <record id="view_hostel_room_tree_view" model="ir.ui.view">
@@ -141,15 +142,19 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="name" placeholder="Room Name"/>
-                            <field name="room_num" placeholder="Room No."/>
-                            <field name="room_floor" placeholder="Floor" />
-                            <field name="currency_id" placeholder="Currency" />
-                            <field name="rent_amount" placeholder="Ammount" />
-                            <field name="room_rating" placeholder="Rating" />
+                            <group>
+                                <field name="name" placeholder="Room Name"/>
+                                <field name="room_num" placeholder="Room No."/>
+                                <field name="room_floor" placeholder="Floor" />
+                                <field name="currency_id" placeholder="Currency" />
+                                <field name="rent_amount" placeholder="Ammount" />
+                                <field name="room_rating" placeholder="Rating" />
+                                <field name="remarks" />
 
-                            <field name="student_ids" placeholder="Students" />
-                            <field name="hostel_amenities_ids" placeholder="Amenities" />
+                                <field name="student_ids" placeholder="Students" />
+                                <field name="hostel_amenities_ids" placeholder="Amenities" />
+                            </group>
+                            
                             
                             <group>
                                 <button name="make_available" string="Make Available" type="object"/>

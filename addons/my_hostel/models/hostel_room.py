@@ -24,6 +24,7 @@ class HostelRoom(models.Model):
     room_num = fields.Char("Room No.")
     room_floor = fields.Char("Room Floor")
     room_rating = fields.Integer("Room Rating")
+    remarks = fields.Text('Remarks')
 
     currency_id = fields.Many2one('res.currency', string='Currency')
     rent_amount = fields.Monetary('Rent Amount', help="Enter rent amount per month")
@@ -155,3 +156,22 @@ class HostelRoom(models.Model):
     @api.model
     def sort_rooms_by_rating(self, rooms):
         return rooms.sorted(key='room_rating')
+    
+    @api.model
+    def create(self, values):
+        if not self.user_has_groups('my_hostel.group_hostel_manager'):
+            if values.get('remarks'):
+                raise UserError(
+                'You are not allowed to modify '
+                'remarks'
+                )
+        return super(HostelRoom, self).create(values)
+    
+    def write(self, values):
+        if not self.user_has_groups('my_hostel.group_hostel_manager'):
+            if values.get('remarks'):
+                raise UserError(
+                'You are not allowed to modify '
+                'manager_remarks'
+                )
+        return super(HostelRoom, self).write(values)
