@@ -175,3 +175,7 @@ class HostelRoom(models.Model):
                 'manager_remarks'
                 )
         return super(HostelRoom, self).write(values)
+    
+    
+    
+    
